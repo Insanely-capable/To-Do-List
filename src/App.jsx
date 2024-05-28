@@ -1,28 +1,59 @@
-import { useState } from 'react'
-import './App.css'
+
+import { useState } from 'react';
+import './App.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
-  const [inputValue, setInputValue] = useState('');
-  const [tasks ,setTasks] = useState([]);
+  const [task, setTask] = useState('');
+  const [taskList, setTaskList] = useState([]);
 
-  function handleSubmit(){
-      setTasks([... tasks, inputValue]);
+  function handleAddTask() {
+    if (task.trim() !== '') {
+      setTaskList([...taskList, task]);
+      setTask(''); 
+    }
   }
 
+  function handleDeleteTask(index) {
+    const updatedTaskList = taskList.filter((_, i) => i !== index);
+    setTaskList(updatedTaskList);
+  }
 
-  return(
-      <>
-          <div id="todo">
-              <input type='text' placeholder="" value={inputValue} onChange={(e) => setInputValue(e.target.value)}></input>
-              <button onClick={handleSubmit}>Add Task</button>
-          </div>
-          <ul>
-              {tasks.map((task , index) => (
-                      <li key={index}>{task}</li>
-              ))}
-          </ul>
-      </>
-  )
+  function handleEditTask(index) {
+    setTask(taskList[index]);
+  }
+
+  return (
+    <>
+      <div id="todo">
+        <input
+          type='text'
+          placeholder="Enter your task"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+        <button onClick={handleAddTask}>Add Task</button>
+      </div>
+      <ul>
+        {taskList.map((task, index) => (
+          <li key={index}>
+            <FontAwesomeIcon
+              icon={faPencil}
+              className="icon"
+              onClick={() => handleEditTask(index)}
+            />
+            <FontAwesomeIcon
+              icon={faTrash}
+              className="icon"
+              onClick={() => handleDeleteTask(index)}
+            />
+            {task}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 export default App;

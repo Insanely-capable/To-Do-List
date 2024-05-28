@@ -40,3 +40,29 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+/* App.css */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#todo {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
